@@ -23,8 +23,12 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = spawn_loc)
 
     def die(self):
-        self.rect.move_ip((400 - self.rect.centerx, 100 - self.rect.centery))
-        print("touched hazard :(")
+        self.rect.move_ip((400 - self.rect.centerx, 100 - self.rect.centery)) #there has to be a better way to set the player's position to 400, 100
+        global xvel
+        global yvel
+        xvel = 0
+        yvel = 0
+        print("you died :(")
 
     def update(self):
         global xvel
@@ -33,8 +37,11 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.move_ip((xvel, yvel))
 
-        #collision detection
+        #spikes!
+        if group_touch(player, hazard_list1):
+            self.die()
 
+        #collision detectio
         shifted = False
         if group_touch(player, block_list1):
             self.rect.move_ip((0, -5))
@@ -158,10 +165,6 @@ class Player(pygame.sprite.Sprite):
         else:
             grounded = False
         self.rect.move_ip(0, -5)
-
-        #spikes!
-        if group_touch(player, hazard_list1):
-            self.die()
         
         if inputs[0] and xvel > -5:
             xvel -= 0.6
