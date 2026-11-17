@@ -19,7 +19,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, spawn_loc):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([10, 10])
-        self.image.fill((255, 0, 0))
+        self.image.fill((0, 200, 0))
         self.rect = self.image.get_rect(center = spawn_loc)
 
     def die(self):
